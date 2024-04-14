@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     using System.Xml.Serialization;
 
-    [XmlRoot(ElementName = "event")]
+    [XmlRoot(Namespace = "log4net", ElementName = "event")]
     public class Event
     {
         [XmlIgnore]

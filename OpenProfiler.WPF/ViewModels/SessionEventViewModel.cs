@@ -4,7 +4,6 @@
     using System.Text.RegularExpressions;
     using ICSharpCode.AvalonEdit.Document;
     using OpenProfiler.WPF.Utils;
-    using SqlFormatter;
 
     public class SessionEventViewModel : ViewModelBase
     {

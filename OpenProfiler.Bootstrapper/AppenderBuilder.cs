@@ -22,9 +22,9 @@
         {
             AssemblyName assemblyName = new AssemblyName("OpenProfiler.Appender");
             AssemblyBuilder assemblyBuilder =
-                AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
+                AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndCollect);
 
-            ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name, assemblyName.Name + ".dll");
+            ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName.Name);
 
             TypeBuilder typeBuilder = moduleBuilder.DefineType(
                 "OpenProfilerAppender",

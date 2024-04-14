@@ -7,7 +7,9 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using SqlFormatter;
+    using PoorMansTSqlFormatterRedux.Formatters;
+    using PoorMansTSqlFormatterRedux.Parsers;
+    using PoorMansTSqlFormatterRedux.Tokenizers;
 
     public class SqlStringUtils
     {
@@ -43,7 +45,10 @@
 
         public static string Format(string str)
         {
-            List<string> result = SqlFormatter.SplitQuery(str).ToList();
+            var tokenized = new TSqlStandardTokenizer().TokenizeSQL(str);
+            var parsed = new TSqlStandardParser().ParseSQL(tokenized);
+            var outputSql = new TSqlStandardFormatter().FormatSQLTree(parsed);
+            List<string> result = new List<string> { outputSql };
 
             string query;
 
@@ -65,11 +70,11 @@
                     queryBuilder.Replace(variableName, processed);
                 }
 
-                query = SqlFormatter.Format(queryBuilder.ToString());
+                query = outputSql;
             }
             else
             {
-                query = SqlFormatter.Format(result[0]);
+                query = outputSql;
             }
 
             return query;

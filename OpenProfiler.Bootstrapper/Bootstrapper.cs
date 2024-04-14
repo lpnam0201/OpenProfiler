@@ -21,7 +21,7 @@
         private static readonly IPAddress RemoteAddress = IPAddress.Parse(LocalhostAddress);
 
         private static Assembly nHibernateAssembly = FindAssembly(NHibernateDllName);
-        private static Assembly log4netAssembly = FindAssembly(Log4NetDllName);
+        private static Assembly log4netAssembly = FindAssembly(Log4NetDllName);        
 
         public static void Initialize()
         {
