@@ -12,7 +12,4 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
-  </ItemGroup>
 </Project>
