@@ -8,12 +8,18 @@
     public class SessionEventViewModel : ViewModelBase
     {
         private string message;
-        private TextDocument textDocument;
+        private string sqlQueryText;
+        private TextDocument sqlQueryTextDocument;
+        private string sqlParamsText;
+        private TextDocument sqlParamsTextDocument;
 
         public SessionEventViewModel(DateTime timeStamp, string message)
         {
             this.TimeStamp = timeStamp;
             this.message = message.Trim();
+            var (sqlQueryText, sqlParamsText) = SqlStringUtils.Format(message);
+            this.sqlQueryText = sqlQueryText;
+            this.sqlParamsText = sqlParamsText;
         }
 
         public DateTime TimeStamp { get; private set; }
@@ -22,13 +28,23 @@
         {
             get
             {
-                if (this.textDocument == null)
+                if (sqlQueryTextDocument == null)
                 {
-                    string formatted = SqlStringUtils.Format(this.message);
-                    this.textDocument = new TextDocument(formatted);
+                    this.sqlQueryTextDocument = new TextDocument(this.sqlQueryText);
                 }
+                return this.sqlQueryTextDocument;
+            }
+        }
 
-                return this.textDocument;
+        public TextDocument SqlParametersText
+        {
+            get
+            {
+                if (sqlParamsTextDocument == null)
+                {
+                    this.sqlParamsTextDocument = new TextDocument(this.sqlParamsText);
+                }
+                return this.sqlParamsTextDocument;
             }
         }
 

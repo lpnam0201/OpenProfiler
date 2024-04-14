@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenProfiler.Bootstrapper", "OpenProfiler.Bootstrapper\OpenProfiler.Bootstrapper.csproj", "{CD39AD54-03C4-45DA-8925-FAF34F7FCF0A}"
 EndProject
@@ -12,7 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		LICENSE.md = LICENSE.md
 		README.md = README.md
-		Settings.StyleCop = Settings.StyleCop
 	EndProjectSection
 EndProject
 Global
@@ -32,5 +30,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A5FAF71-4D6F-4A86-A26D-E741508E2C4F}
 	EndGlobalSection
 EndGlobal

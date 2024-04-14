@@ -70,15 +70,37 @@
                 ResizeBehavior="PreviousAndNext"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
-            <avalonEdit:TextEditor
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <avalonEdit:TextEditor
                     xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                    Grid.Row="2"
+                    Grid.Column="0"
                     Name="textEditor"
                     FontFamily="Consolas"
                     ShowLineNumbers="True"
                     Document="{Binding Path=SelectedSessionEvent.FormattedSqlDocument}"
                     IsReadOnly="True"
                     FontSize="10pt"/>
+                <GridSplitter
+                    Grid.Column="1"
+                    Width="5"
+                    ResizeBehavior="PreviousAndNext"
+                    VerticalAlignment="Stretch"
+                    HorizontalAlignment="Left" />
+                <avalonEdit:TextEditor
+                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                    Grid.Column="2"
+                    Name="paramsEditor"
+                    FontFamily="Consolas"
+                    ShowLineNumbers="True"
+                    Document="{Binding Path=SelectedSessionEvent.SqlParametersText}"
+                    IsReadOnly="True"
+                    FontSize="10pt"/>
+            </Grid>
         </Grid>
 
     </Grid>
