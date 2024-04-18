@@ -16,7 +16,7 @@
         private const string Log4NetDllName = "log4net.dll";
         private const string NHibernateSQLLoggerName = "NHibernate.SQL";
 
-        private const int RemotePort = 329;
+        private const int DefaultRemotePort = 329;
 
         private static readonly IPAddress RemoteAddress = IPAddress.Parse(LocalhostAddress);
 
@@ -25,7 +25,11 @@
 
         public static void Initialize()
         {
+            Initialize(DefaultRemotePort);
+        }
 
+        public static void Initialize(int remotePort)
+        {
             if (nHibernateAssembly != null && log4netAssembly != null)
             {
                 var appenderBuilder = new AppenderBuilder(nHibernateAssembly, log4netAssembly);
@@ -39,7 +43,7 @@
                 UdpAppender appender = new UdpAppender(openProfilerAppender);
                 appender.Encoding = Encoding.UTF8;
                 appender.RemoteAddress = RemoteAddress;
-                appender.RemotePort = RemotePort;
+                appender.RemotePort = remotePort;
 
                 appender.Layout = new XmlLayout();
                 appender.ActivateOptions();
