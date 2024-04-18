@@ -10,16 +10,12 @@
         private string message;
         private string sqlQueryText;
         private TextDocument sqlQueryTextDocument;
-        private string sqlParamsText;
-        private TextDocument sqlParamsTextDocument;
 
         public SessionEventViewModel(DateTime timeStamp, string message)
         {
             this.TimeStamp = timeStamp;
             this.message = message.Trim();
-            var (sqlQueryText, sqlParamsText) = SqlStringUtils.Format(message);
-            this.sqlQueryText = sqlQueryText;
-            this.sqlParamsText = sqlParamsText;
+            this.sqlQueryText = SqlStringUtils.Format(message);
         }
 
         public DateTime TimeStamp { get; private set; }
@@ -33,18 +29,6 @@
                     this.sqlQueryTextDocument = new TextDocument(this.sqlQueryText);
                 }
                 return this.sqlQueryTextDocument;
-            }
-        }
-
-        public TextDocument SqlParametersText
-        {
-            get
-            {
-                if (sqlParamsTextDocument == null)
-                {
-                    this.sqlParamsTextDocument = new TextDocument(this.sqlParamsText);
-                }
-                return this.sqlParamsTextDocument;
             }
         }
 
