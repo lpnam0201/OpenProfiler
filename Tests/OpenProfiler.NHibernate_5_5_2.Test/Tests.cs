@@ -5,12 +5,15 @@ using NHibernate.Cfg;
 using NHibernate.Cfg.ConfigurationSchema;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
+using OpenProfiler.Tests.Common;
 
 namespace OpenProfiler.NHibernate_5_5_2.Test
 {
+    [TestFixture]
     public class Tests
     {
         private ISessionFactory _sessionFactory;
+        private UdpListener _udpListener;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -26,15 +29,20 @@ namespace OpenProfiler.NHibernate_5_5_2.Test
             configuration.AddMapping(
                 conventionModelMapper.CompileMappingForAllExplicitlyAddedEntities());
             _sessionFactory = configuration.BuildSessionFactory();
+
+            _udpListener = new UdpListener("127.0.0.1", 29817);
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            _udpListener.Close();
         }
 
         [Test]
         public void TryMakingNHibernateCalls__WithProfilerInitialized__ShouldWorkCorrectly()
         {
             OpenProfilerInfrastructure.Initialize();
-            var repo = LogManager.GetRepository() as Hierarchy;
-            
-            var logger = NHibernateLogger.For("NHibernate.SQL");
 
             using (var session = _sessionFactory.OpenSession())
             {

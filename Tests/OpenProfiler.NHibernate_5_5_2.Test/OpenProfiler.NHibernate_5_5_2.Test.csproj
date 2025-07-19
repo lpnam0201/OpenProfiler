@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OpenProfiler.Tests.Common\OpenProfiler.Tests.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="OpenProfiler">
       <HintPath>..\OpenProfilerDll\OpenProfiler.dll</HintPath>
     </Reference>
