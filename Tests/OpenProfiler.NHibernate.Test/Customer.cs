@@ -1,4 +1,4 @@
-﻿namespace OpenProfiler.NHibernate_5_5_2.Test
+﻿namespace OpenProfiler.NHibernate.Test
 {
     public class Customer
     {

@@ -5,7 +5,7 @@ using NHibernate.Mapping.ByCode;
 using NUnit.Framework;
 using OpenProfiler.Tests.Common;
 
-namespace OpenProfiler.NHibernate_5_5_2.Test
+namespace OpenProfiler.NHibernate.Test
 {
     [TestFixture]
     public class Tests

@@ -7,9 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler", "OpenProfile
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.GUI", "OpenProfiler.GUI\OpenProfiler.GUI.csproj", "{9E45A251-EA13-4364-A9A2-9027ABACCDE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.NHibernate_5_5_2.Test", "Tests\OpenProfiler.NHibernate_5_5_2.Test\OpenProfiler.NHibernate_5_5_2.Test.csproj", "{4303CB6C-9DD1-45A3-8D9D-0D11D185C9D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.NHibernate.Test", "Tests\OpenProfiler.NHibernate.Test\OpenProfiler.NHibernate.Test.csproj", "{4303CB6C-9DD1-45A3-8D9D-0D11D185C9D5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\NHibernateVersions.txt = Tests\NHibernateVersions.txt
+		Tests\README.txt = Tests\README.txt
+		Tests\run-all-tests.ps1 = Tests\run-all-tests.ps1
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.Tests.Common", "Tests\OpenProfiler.Tests.Common\OpenProfiler.Tests.Common.csproj", "{D59C0931-CE9B-8542-B94F-7CB888E25DBD}"
 EndProject
