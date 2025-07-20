@@ -1,10 +1,8 @@
-using log4net;
-using log4net.Repository.Hierarchy;
 using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Cfg.ConfigurationSchema;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
+using NUnit.Framework;
 using OpenProfiler.Tests.Common;
 
 namespace OpenProfiler.NHibernate_5_5_2.Test
