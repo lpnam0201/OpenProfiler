@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace OpenProfiler.GUI.Service
 {
-    public interface IDataCollectingService
+    public interface IBufferService
     {
+        public event DataReceivedEvent ItemsReceived;
+        void Add(string dataItem);
     }
 }

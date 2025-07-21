@@ -8,16 +8,38 @@ using System.Threading.Tasks;
 
 namespace OpenProfiler.GUI.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : BindableBase
     {
         public ObservableCollection<QueryListItem> QueryListItems = new ObservableCollection<QueryListItem>();
-        public QueryDetail QueryDetail { get; set; }
-
-        private readonly IDataCollectingService dataCollectingService;
-
-        public MainWindowViewModel(IDataCollectingService dataCollectingService)
+        private QueryDetail _queryDetail;
+        public QueryDetail QueryDetail
         {
-            this.dataCollectingService = dataCollectingService;
+            get { return _queryDetail;  }
+            set { SetProperty(ref _queryDetail, value); }
+        }
+
+        private readonly IDataReceivingService _dataCollectingService;
+        private readonly IBufferService _bufferService;
+        private readonly IFormatService _formatService;
+
+        public MainWindowViewModel(IDataReceivingService dataCollectingService,
+            IBufferService bufferService,
+            IFormatService formatService)
+        {
+            _dataCollectingService = dataCollectingService;
+            _bufferService = bufferService;
+            _formatService = formatService;
+        }
+
+        private void WatchBuffer()
+        {
+            _bufferService.ItemsReceived += _bufferService_ItemsReceived;
+
+        }
+
+        private void _bufferService_ItemsReceived(DataEventArgs<List<string>> dataItems)
+        {
+             _formatService.Transform
         }
     }
 }
