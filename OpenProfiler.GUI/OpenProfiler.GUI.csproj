@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
 </Project>

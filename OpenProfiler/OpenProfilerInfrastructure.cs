@@ -104,7 +104,11 @@ namespace OpenProfiler
             {
                 var copiedEvents = _profilerEvents.ToList();
                 _profilerEvents.Clear();
-                _udpMessageDispatcher.Dispatch(copiedEvents);
+
+                if (copiedEvents.Count > 0)
+                {
+                    _udpMessageDispatcher.Dispatch(copiedEvents);
+                }
 
                 Thread.Sleep(200);
             }
