@@ -10,7 +10,12 @@ namespace OpenProfiler.GUI.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
-        public ObservableCollection<QueryListItem> QueryListItems = new ObservableCollection<QueryListItem>();
+        private ObservableCollection<QueryListItem> _queryListItems = new ObservableCollection<QueryListItem>();
+        public ObservableCollection<QueryListItem> QueryListItems
+        {
+            get { return _queryListItems; }
+            set { SetProperty(ref _queryListItems, value); }
+        }
         private QueryDetail _queryDetail;
         public QueryDetail QueryDetail
         {
@@ -18,7 +23,7 @@ namespace OpenProfiler.GUI.ViewModel
             set { SetProperty(ref _queryDetail, value); }
         }
 
-        private readonly IDataReceivingService _dataCollectingService;
+        private readonly IDataReceivingService _dataReceivingService;
         private readonly IBufferService _bufferService;
         private readonly IFormatService _formatService;
 
@@ -26,20 +31,38 @@ namespace OpenProfiler.GUI.ViewModel
             IBufferService bufferService,
             IFormatService formatService)
         {
-            _dataCollectingService = dataCollectingService;
+            _dataReceivingService = dataCollectingService;
             _bufferService = bufferService;
             _formatService = formatService;
+
+            WatchBuffer();
+            _dataReceivingService.StartCollecting();
+            QueryListItems = new ObservableCollection<QueryListItem>
+            {
+                new QueryListItem
+                {
+                    Text = " 34"
+                }
+            };
         }
 
         private void WatchBuffer()
         {
-            _bufferService.ItemsReceived += _bufferService_ItemsReceived;
+            _bufferService.ItemsReceived += BufferService_ItemsReceived;
 
         }
 
-        private void _bufferService_ItemsReceived(DataEventArgs<List<string>> dataItems)
+        private void BufferService_ItemsReceived(DataEventArgs<List<string>> dataItems)
         {
-             _formatService.Transform
+            var queryListItem = dataItems.Value.Select(x => _formatService.Transform(x))
+                .SelectMany(x => x);
+            App.Current.Dispatcher.Invoke(() =>
+            {
+                foreach (var item in queryListItem)
+                {
+                    QueryListItems.Add(item);
+                }
+            });
         }
     }
 }

@@ -9,6 +9,6 @@ namespace OpenProfiler.GUI.Service
 {
     public interface IFormatService
     {
-        QueryListItem Transform(string dataStr);
+        List<QueryListItem> Transform(string dataStr);
     }
 }

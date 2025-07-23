@@ -3,9 +3,12 @@ using NHibernate.Cfg;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
 using NUnit.Framework;
+using OpenProfiler.Models;
+using OpenProfiler.Tests.Common;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Timers;
 
@@ -22,18 +25,7 @@ namespace OpenProfiler.NHibernate.Test
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var configuration = new Configuration();
-            configuration.DataBaseIntegration(db =>
-            {
-                db.Dialect<MsSql2012Dialect>();
-                db.ConnectionString = "Data Source=NB34448;Initial Catalog=OpenProfilerSampleDatabase;Trusted_Connection=true";
-            });
-            var conventionModelMapper = new ConventionModelMapper();
-            conventionModelMapper.AddMapping<CustomerMap>();
-            configuration.AddMapping(
-                conventionModelMapper.CompileMappingForAllExplicitlyAddedEntities());
-            _sessionFactory = configuration.BuildSessionFactory();
-
+            _sessionFactory = new TestSetup().BuildSessionFactory();
             if (File.Exists(UdpOutputFileName))
             {
                 File.Delete(UdpOutputFileName);
@@ -85,6 +77,11 @@ namespace OpenProfiler.NHibernate.Test
             }
 
             WaitForOutputFileAvailable();
+            var lines = File.ReadAllLines(UdpOutputFileName);
+            foreach (var line in lines)
+            {
+                var profilerEvents = JsonSerializer.Deserialize<ProfilerEvent[]>(line);
+            }
         }
 
         private void WaitForOutputFileAvailable()

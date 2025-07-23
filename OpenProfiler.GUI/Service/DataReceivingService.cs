@@ -11,24 +11,26 @@ namespace OpenProfiler.GUI.Service
     public class DataReceivingService : IDataReceivingService
     {
         private bool _isCollecting;
-        private bool _isStarted;
         private UdpClient _udpClient;
         private readonly IBufferService _bufferService;
 
         public DataReceivingService(IBufferService bufferService)
         {
-            _udpClient = new UdpClient();
+            _udpClient = new UdpClient(29817);
             _bufferService = bufferService;
 
 
             var thread = new Thread(() =>
             {
-                while (_isCollecting)
+                while (true)
                 {   
-                    var ipAddress = new IPEndPoint(IPAddress.Loopback, 29817);
-                    var data = _udpClient.Receive(ref ipAddress);
-                    var str = Encoding.UTF8.GetString(data);
-                    _bufferService.Add(str);
+                    if (_isCollecting)
+                    {
+                        var ipAddress = new IPEndPoint(IPAddress.Loopback, 29817);
+                        var data = _udpClient.Receive(ref ipAddress);
+                        var str = Encoding.UTF8.GetString(data);
+                        _bufferService.Add(str);
+                    }
                 }
             });
             thread.IsBackground = true;
@@ -38,11 +40,6 @@ namespace OpenProfiler.GUI.Service
         public void StartCollecting()
         {
             _isCollecting = true;
-        }
-
-        private void Received(IAsyncResult asyncResult)
-        {
-            
         }
 
         public void StopCollecting()

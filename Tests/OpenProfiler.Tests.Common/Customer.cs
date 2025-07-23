@@ -1,4 +1,6 @@
-﻿namespace OpenProfiler.NHibernate.Test
+﻿using System;
+
+namespace OpenProfiler.Tests.Common
 {
     public class Customer
     {

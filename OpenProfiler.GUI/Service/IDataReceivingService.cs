@@ -8,6 +8,7 @@ namespace OpenProfiler.GUI.Service
 {
     public interface IDataReceivingService
     {
-
+        void StartCollecting();
+        void StopCollecting();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using NHibernate.Mapping.ByCode;
 using NHibernate.Mapping.ByCode.Conformist;
 
-namespace OpenProfiler.NHibernate.Test
+namespace OpenProfiler.Tests.Common
 {
     public class CustomerMap : ClassMapping<Customer>
     {
