@@ -1,8 +1,7 @@
 ﻿<Application x:Class="OpenProfiler.GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:OpenProfiler.GUI"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:OpenProfiler.GUI">
     <Application.Resources>
          
     </Application.Resources>

@@ -20,8 +20,10 @@ public partial class App : Application
 
         _kernel = new StandardKernel();
         ConfigureServices();
-        MainWindow = _kernel.Get<MainWindow>();
+
+        MainWindow = new MainWindow();
         MainWindow.DataContext = _kernel.Get<MainWindowViewModel>();
+        MainWindow.Show();
     }
 
     private void ConfigureServices()

@@ -37,13 +37,6 @@ namespace OpenProfiler.GUI.ViewModel
 
             WatchBuffer();
             _dataReceivingService.StartCollecting();
-            QueryListItems = new ObservableCollection<QueryListItem>
-            {
-                new QueryListItem
-                {
-                    Text = " 34"
-                }
-            };
         }
 
         private void WatchBuffer()
