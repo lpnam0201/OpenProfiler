@@ -73,7 +73,9 @@ namespace OpenProfiler.NHibernate.Test
 
             using (var session = _sessionFactory.OpenSession())
             {
-                var result = session.QueryOver<Customer>().List();
+                var result = session.QueryOver<Customer>()
+                    .Where(x => x.Name == "Name")
+                    .List();
             }
 
             WaitForOutputFileAvailable();
