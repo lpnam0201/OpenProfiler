@@ -1,4 +1,5 @@
 ﻿using OpenProfiler.GUI.Model;
+using OpenProfiler.GUI.Util;
 using OpenProfiler.GUI.ViewModel;
 using PoorMansTSqlFormatterRedux.Formatters;
 using PoorMansTSqlFormatterRedux.Parsers;
@@ -44,10 +45,11 @@ namespace OpenProfiler.GUI.Service
             while (queue.Count > 0)
             {
                 var param = queue.Dequeue();
+                var formattedValue = SqlValueFormatter.Format(param.Value, param.Type);
                 var match = Regex.Matches(finalText, Constants.FormattingConstants.ParameterPattern)
                     .First(x => x.Value == param.Name);
                 finalText = finalText.Remove(match.Index, match.Length)
-                    .Insert(match.Index, param.Value);
+                    .Insert(match.Index, formattedValue);
 
             }
 

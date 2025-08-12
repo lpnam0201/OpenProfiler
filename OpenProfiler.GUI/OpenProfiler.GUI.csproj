@@ -15,8 +15,4 @@
     <PackageReference Include="Prism.Core" Version="9.0.537" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Util\" />
-  </ItemGroup>
-
 </Project>

@@ -28,13 +28,21 @@
             {
                 return;
             }
-            var copiedList = _dataItems.ToList();
-            ItemsReceived?.Invoke(new DataEventArgs<List<string>>(copiedList));
-            _dataItems.Clear();
+            lock ()
+            {
+                var copiedList = _dataItems.ToList();
+                ItemsReceived?.Invoke(new DataEventArgs<List<string>>(copiedList));
+                _dataItems.Clear();
+            }
+            
         }
 
         public void Add(string dataItem)
         {
+            if (_dataItems.Contains(dataItem))
+            {
+                throw new InvalidOperationException();
+            }
             _dataItems.Add(dataItem);
             if (_dataItems.Count > FlushThreshold)
             {

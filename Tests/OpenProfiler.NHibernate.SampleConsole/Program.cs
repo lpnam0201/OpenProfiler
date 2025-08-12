@@ -24,8 +24,8 @@ namespace OpenProfiler.NHibernate.SampleConsole
 
                 session.Flush();
 
-                var f1 = session.Query<Customer>().Where(x => x.Name == "1").ToFuture();
-                var f2 = session.Query<Customer>().Where(x => x.Name == "2").ToFuture();
+                var f1 = session.Query<Customer>().Where(x => x.Id == 1).ToFuture();
+                var f2 = session.Query<Customer>().Where(x => x.HP == 100).ToFuture();
                 var x = f1.ToList();
             }
 
