@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using OpenProfiler.GUI.DI;
 using OpenProfiler.GUI.Service;
 using OpenProfiler.GUI.ViewModel;
 using System.Configuration;
@@ -28,10 +29,7 @@ public partial class App : Application
 
     private void ConfigureServices()
     {
-        _kernel.Bind<MainWindowViewModel>().ToSelf();
-        _kernel.Bind<IDataReceivingService>().To<DataReceivingService>().InSingletonScope();
-        _kernel.Bind<IBufferService>().To<BufferService>().InSingletonScope();
-        _kernel.Bind<IFormatService>().To<FormatService>().InSingletonScope();
+        _kernel.Load<OpenProfilerGUIModule>();
     }
 
 }

@@ -92,6 +92,7 @@ namespace OpenProfiler
 
             _profilerEvents.Add(new ProfilerEvent()
             {
+                Guid = Guid.NewGuid(),
                 LoggerName = loggerName,
                 Timestamp = timestamp,
                 Message = message

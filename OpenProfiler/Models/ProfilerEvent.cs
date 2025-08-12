@@ -8,6 +8,7 @@ namespace OpenProfiler.Models
 {
     public class ProfilerEvent
     {
+        public Guid Guid { get; set; }
         public DateTime Timestamp { get; set; }
         public string LoggerName { get; set; }
         public string Message { get; set; }

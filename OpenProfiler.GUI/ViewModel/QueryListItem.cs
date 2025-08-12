@@ -8,6 +8,13 @@ namespace OpenProfiler.GUI.ViewModel
 {
     public class QueryListItem : BindableBase
     {
+        private Guid _guid;
+        public Guid Guid
+        {
+            get { return _guid; }
+            set { SetProperty(ref _guid, value); }
+        }
+
         private string _text;
         public string Text
         {

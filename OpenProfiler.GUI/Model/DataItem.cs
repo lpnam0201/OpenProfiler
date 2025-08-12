@@ -8,6 +8,7 @@ namespace OpenProfiler.GUI.Model
 {
     public class DataItem
     {
+        public Guid Guid { get; set; }
         public DateTime Timestamp { get; set; }
         public string LoggerName { get; set; }
         public string Message { get; set; }

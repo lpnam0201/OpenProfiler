@@ -27,6 +27,7 @@ namespace OpenProfiler.GUI.Service
                 processedText = ApplyParameters(processedText, parameters);
                 return new QueryListItem()
                 {
+                    Guid = x.Guid,
                     Text = processedText,
                     LoggerName = x.LoggerName,
                     Timestamp = x.Timestamp
@@ -34,26 +35,26 @@ namespace OpenProfiler.GUI.Service
             }).ToList();
         }
 
-        private string ApplyParameters(string sqlText, IDictionary<string, SqlParameter> parameterDictionary)
+        private string ApplyParameters(string sqlText, IList<SqlParameter> parameters)
         {
-            var finalText = string.Empty;
-            var paramsInText = Regex.Replace("", "", match =>
+            // use StringBuilder
+            var finalText = sqlText;
+            var queue = new Queue<SqlParameter>(parameters);
+
+            while (queue.Count > 0)
             {
-                var paramIndex = match.Groups[1];
-            });
-            foreach (var kvp in parameterDictionary)
-            {
-                var paramName = kvp.Key;
-                var paramObj = kvp.Value;
-                var dataType = paramObj.Type;
-                var value = paramObj.Value;
-                
+                var param = queue.Dequeue();
+                var match = Regex.Matches(finalText, Constants.FormattingConstants.ParameterPattern)
+                    .First(x => x.Value == param.Name);
+                finalText = finalText.Remove(match.Index, match.Length)
+                    .Insert(match.Index, param.Value);
+
             }
 
-            return sqlText;
+            return finalText;
         }
 
-        private (string, IDictionary<string, SqlParameter>) RemoveParametersFromSqlText(string sqlText)
+        private (string, IList<SqlParameter>) RemoveParametersFromSqlText(string sqlText)
         {
             var parameters = new List<SqlParameter>();
 
@@ -74,7 +75,7 @@ namespace OpenProfiler.GUI.Service
                 parameters.Add(sqlParameter);
                 processedText = processedText.Replace(parameterMatch.Value, "");
             } while(true);
-            return (processedText, parameters.ToDictionary(x => x.Name));
+            return (processedText, parameters);
         }
 
         private string FormatSqlText(string sqlText)

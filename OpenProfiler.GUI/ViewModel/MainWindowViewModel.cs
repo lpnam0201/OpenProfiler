@@ -31,6 +31,7 @@ namespace OpenProfiler.GUI.ViewModel
         }
 
         public DelegateCommand QueryListItemSelectedCommand { get; set; }
+        public DelegateCommand ClearCommand { get; set; }
 
         private readonly IDataReceivingService _dataReceivingService;
         private readonly IBufferService _bufferService;
@@ -44,22 +45,27 @@ namespace OpenProfiler.GUI.ViewModel
             _bufferService = bufferService;
             _formatService = formatService;
             QueryListItemSelectedCommand = new DelegateCommand(DisplayQueryDetail);
+            ClearCommand = new DelegateCommand(ClearQueryList);
 
             WatchBuffer();
             _dataReceivingService.StartCollecting();
         }
 
-        public void DisplayQueryDetail()
+        private void DisplayQueryDetail()
         {
-            var text = SelectedQueryListItem.LoggerName 
-                + Environment.NewLine +
-                SelectedQueryListItem.Text
-                + Environment.NewLine +
-                SelectedQueryListItem.Timestamp;
-            QueryDetail = new QueryDetail
-            {
-                Text = text
-            };
+
+            QueryDetail = SelectedQueryListItem != null
+                ? new QueryDetail
+                {
+                    Text = SelectedQueryListItem.Text
+                }
+                : null;
+        }
+
+        private void ClearQueryList()
+        {
+            QueryListItems.Clear();
+            QueryDetail = null;
         }
 
         private void WatchBuffer()
