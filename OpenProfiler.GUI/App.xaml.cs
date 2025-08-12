@@ -4,6 +4,7 @@ using OpenProfiler.GUI.Service;
 using OpenProfiler.GUI.ViewModel;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Windows;
 
 namespace OpenProfiler.GUI;
@@ -21,6 +22,7 @@ public partial class App : Application
 
         _kernel = new StandardKernel();
         ConfigureServices();
+        AppDomain.CurrentDomain.UnhandledException += LogUnhandledException;
 
         MainWindow = new MainWindow();
         MainWindow.DataContext = _kernel.Get<MainWindowViewModel>();
@@ -30,6 +32,11 @@ public partial class App : Application
     private void ConfigureServices()
     {
         _kernel.Load<OpenProfilerGUIModule>();
+    }
+
+    private void LogUnhandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        File.WriteAllText("crashlog.txt", e.ExceptionObject.ToString());
     }
 
 }
