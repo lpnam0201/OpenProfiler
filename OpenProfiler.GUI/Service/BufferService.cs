@@ -1,4 +1,6 @@
-﻿namespace OpenProfiler.GUI.Service
+﻿using System.Collections.Concurrent;
+
+namespace OpenProfiler.GUI.Service
 {
     public delegate void DataReceivedEvent(DataEventArgs<List<string>> dataItems);
     public class BufferService : IBufferService
@@ -8,6 +10,7 @@
         private static int FlushThreshold = 10;
         private IList<string> _dataItems = new List<string>();
         private System.Timers.Timer _timer;
+        private object _flushLockObj = new object();
 
         public BufferService()
         {
@@ -24,25 +27,20 @@
 
         private void Flush()
         {
-            if (_dataItems.Count == 0)
+            lock (_flushLockObj)
             {
-                return;
-            }
-            lock ()
-            {
+                if (_dataItems.Count == 0)
+                {
+                    return;
+                }
                 var copiedList = _dataItems.ToList();
-                ItemsReceived?.Invoke(new DataEventArgs<List<string>>(copiedList));
                 _dataItems.Clear();
+                ItemsReceived?.Invoke(new DataEventArgs<List<string>>(copiedList));
             }
-            
         }
 
         public void Add(string dataItem)
         {
-            if (_dataItems.Contains(dataItem))
-            {
-                throw new InvalidOperationException();
-            }
             _dataItems.Add(dataItem);
             if (_dataItems.Count > FlushThreshold)
             {
