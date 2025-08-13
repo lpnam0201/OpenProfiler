@@ -44,6 +44,9 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <TextBlock Grid.Column="1" Text="{Binding QueryDetail.Text}" TextWrapping="Wrap"></TextBlock>
+        <TextBox Grid.Column="1" 
+                 Text="{Binding QueryDetail.Text}" 
+                 TextWrapping="Wrap"
+                 IsReadOnly="True"></TextBox>
     </Grid>
 </Window>

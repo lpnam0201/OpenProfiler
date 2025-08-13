@@ -4,13 +4,8 @@ using OpenProfiler.GUI.ViewModel;
 using PoorMansTSqlFormatterRedux.Formatters;
 using PoorMansTSqlFormatterRedux.Parsers;
 using PoorMansTSqlFormatterRedux.Tokenizers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace OpenProfiler.GUI.Service
 {
@@ -23,7 +18,7 @@ namespace OpenProfiler.GUI.Service
             return dataItems.Select(x =>
             {
                 var (processedText, parameters) = RemoveParametersFromSqlText(x.Message);
-                processedText = TrimCommaAtTheEnd(processedText);
+                processedText = TrimAtTheEnd(processedText);
                 processedText = FormatSqlText(processedText);
                 processedText = ApplyParameters(processedText, parameters);
                 return new QueryListItem()
@@ -47,9 +42,12 @@ namespace OpenProfiler.GUI.Service
                 var param = queue.Dequeue();
                 var formattedValue = SqlValueFormatter.Format(param.Value, param.Type);
                 var match = Regex.Matches(finalText, Constants.FormattingConstants.ParameterPattern)
-                    .First(x => x.Value == param.Name);
-                finalText = finalText.Remove(match.Index, match.Length)
-                    .Insert(match.Index, formattedValue);
+                    .FirstOrDefault(x => x.Value == param.Name);
+                if (match != null)
+                {
+                    finalText = finalText.Remove(match.Index, match.Length)
+                        .Insert(match.Index, formattedValue);
+                }
 
             }
 
@@ -89,9 +87,9 @@ namespace OpenProfiler.GUI.Service
             return formatted;
         }
 
-        private string TrimCommaAtTheEnd(string sqlText)
+        private string TrimAtTheEnd(string sqlText)
         {
-            return sqlText.TrimEnd(',', ' ', ';');
+            return sqlText.TrimEnd(',', ' ', ';', '\r', '\n');
         }
     }
 }

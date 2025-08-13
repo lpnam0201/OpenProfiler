@@ -12,9 +12,12 @@ namespace OpenProfiler.GUI.Util
             = new Dictionary<string, Func<string, string>>
         {
             { "DateTime2", FormatDateTime },
+            { "Date", FormatDateTime },
             { "String", x => x },
             { "Int64", x => x },
-            { "Int32", x => x }
+            { "Int32", x => x },
+            { "Decimal", x => x },
+            { "Boolean",FormatBoolean }
         };
 
         public static string Format(string value, string type)
@@ -30,6 +33,13 @@ namespace OpenProfiler.GUI.Util
         private static string FormatDateTime(string value)
         {
             return $"'{value}'";
+        }
+
+        private static string FormatBoolean(string value)
+        {
+            return value == "True"
+                ? "1=1"
+                : "1=0";
         }
     }
 }
