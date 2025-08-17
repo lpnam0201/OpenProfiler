@@ -2,6 +2,9 @@
 using NHibernate.Criterion;
 using NHibernate.Linq;
 using OpenProfiler.Tests.Common;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace OpenProfiler.NHibernate.SampleConsole
 {
@@ -9,6 +12,30 @@ namespace OpenProfiler.NHibernate.SampleConsole
     {
         static void Main(string[] args)
         {
+            //var connString = "Data Source=NB34448;Initial Catalog=OpenProfilerSampleDatabase;Trusted_Connection=true";
+            //using (SqlConnection conn = new SqlConnection(connString))
+            //using (SqlCommand cmd = new SqlCommand("SELECT Id FROM Customer WHERE Id IN (SELECT value FROM @Id)", conn))
+            //{
+            //    var dataTable = new DataTable();
+            //    dataTable.Columns.Add();
+            //    for (int i = 0; i <= 3000; i++)
+            //    {
+            //        dataTable.Rows.Add(i + 1);
+            //    }
+            //    var param = cmd.Parameters.AddWithValue("Id", dataTable);
+            //    param.SqlDbType = SqlDbType.Structured;
+            //    param.TypeName = "dbo.ListOfStrings";
+
+            //    conn.Open();
+            //    using (SqlDataReader reader = cmd.ExecuteReader())
+            //    {
+            //        while (reader.Read())
+            //        {
+            //            Console.WriteLine(reader["Id"]);
+            //        }
+            //    }
+            //}
+
             var sessionFactory = new TestSetup().BuildSessionFactory();
 
             OpenProfilerInfrastructure.Initialize();

@@ -17,7 +17,9 @@ namespace OpenProfiler.GUI.Util
             { "Int64", x => x },
             { "Int32", x => x },
             { "Decimal", x => x },
-            { "Boolean",FormatBoolean }
+            { "Boolean",FormatBoolean },
+            // TODO: find some way to handle table valued parameters
+            { "Object", x => "NULL" }
         };
 
         public static string Format(string value, string type)
