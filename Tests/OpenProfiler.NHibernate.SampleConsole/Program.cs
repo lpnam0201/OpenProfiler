@@ -35,9 +35,7 @@ namespace OpenProfiler.NHibernate.SampleConsole
             //        }
             //    }
             //}
-
             var sessionFactory = new TestSetup().BuildSessionFactory();
-
             OpenProfilerInfrastructure.Initialize();
 
             using (var session = sessionFactory.OpenSession())

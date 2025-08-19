@@ -1,4 +1,6 @@
-﻿using OpenProfiler.Compiling;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
+using OpenProfiler.Compiling;
 using OpenProfiler.Messaging;
 using OpenProfiler.Models;
 using System.Reflection;
@@ -40,26 +42,64 @@ namespace OpenProfiler
 
         private static void AttachAppenderToNHibernate()
         {
+            var log4netAssembly = GetAssemblyByName("log4net");
+
+            if (log4netAssembly != null)
+            {
+                CallInitializeWithLog4Net(log4netAssembly);
+            }
+            else
+            {
+                CallInitializeWithoutLog4Net();
+            }
             
+        }
+
+        private static void CallInitializeWithLog4Net(Assembly log4netAssembly)
+        {
             var assemblyPaths = new List<string>()
             {
-                GetAssemblyByName("log4net").Location
+                log4netAssembly.Location
             };
-            var sourceTexts = GetSourceTexts();
+
+            var sourceFiles = new List<string>()
+            {
+                "OpenProfiler.Resources.Log4NetInitializer.cs",
+                "OpenProfiler.Resources.OpenProfilerAppender.cs",
+                "OpenProfiler.Resources.LoggerNamesConstants.cs"
+            };
+            var sourceTexts = GetSourceTexts(sourceFiles);
 
             var assembly = CompileHelper.CompileAssembly("Temp", sourceTexts, assemblyPaths);
             var loggerInitializerType = assembly.GetType("OpenProfiler.Log4NetInitializer");
             loggerInitializerType.GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
         }
 
-        private static List<string> GetSourceTexts()
+        private static void CallInitializeWithoutLog4Net()
         {
-            var result = new List<string>();
+            var nhibernateAssembly = GetAssemblyByName("NHibernate");
+            var assemblyPaths = new List<string>()
+            {
+                nhibernateAssembly.Location
+            };
             var sourceFiles = new List<string>()
             {
-                "OpenProfiler.Resources.Log4NetInitializer.cs",
-                "OpenProfiler.Resources.OpenProfilerAppender.cs"
+                "OpenProfiler.Resources.NoLog4NetInitializer.cs",
+                "OpenProfiler.Resources.OpenProfilerNHibernateLogger.cs",
+                "OpenProfiler.Resources.OpenProfilerNHibernateLoggerFactory.cs",
+                "OpenProfiler.Resources.OpenProfilerNoLogNHibernateLogger.cs",
+                "OpenProfiler.Resources.LoggerNamesConstants.cs"
             };
+            var sourceTexts = GetSourceTexts(sourceFiles);
+
+            var assembly = CompileHelper.CompileAssembly("Temp", sourceTexts, assemblyPaths);
+            var loggerInitializerType = assembly.GetType("OpenProfiler.NoLog4NetInitializer");
+            loggerInitializerType.GetMethod("Initialize", BindingFlags.Static | BindingFlags.Public).Invoke(null, null);
+        }
+
+        private static List<string> GetSourceTexts(List<string> sourceFiles)
+        {
+            var result = new List<string>();
 
             var assembly = Assembly.GetExecutingAssembly();
             foreach (var sourceFile in sourceFiles)

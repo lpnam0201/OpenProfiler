@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.5.2" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenProfiler.Tests.Common\OpenProfiler.Tests.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OpenProfiler">
+      <HintPath>..\OpenProfilerDll\OpenProfiler.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

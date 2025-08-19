@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <Compile Remove="Resources\Log4NetInitializer.cs" />
+    <Compile Remove="Resources\LoggerNamesConstants.cs" />
+    <Compile Remove="Resources\NoLog4NetInitializer.cs" />
     <Compile Remove="Resources\OpenProfilerAppender.cs" />
+    <Compile Remove="Resources\OpenProfilerNHibernateLogger.cs" />
+    <Compile Remove="Resources\OpenProfilerNHibernateLoggerFactory.cs" />
+    <Compile Remove="Resources\OpenProfilerNoLogNHibernateLogger.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +26,22 @@
     <EmbeddedResource Include="Resources\Log4NetInitializer.cs">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LoggerNamesConstants.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NoLog4NetInitializer.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\OpenProfilerAppender.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OpenProfilerNHibernateLogger.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OpenProfilerNHibernateLoggerFactory.cs">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\OpenProfilerNoLogNHibernateLogger.cs">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
