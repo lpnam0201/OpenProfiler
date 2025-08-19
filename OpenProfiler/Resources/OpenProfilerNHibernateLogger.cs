@@ -16,9 +16,7 @@ namespace OpenProfiler
 
         public bool IsEnabled(NHibernateLogLevel logLevel)
         {
-            if (logLevel == NHibernateLogLevel.None) return true;
-
-            return false;
+            return true;
         }
     }
 }
