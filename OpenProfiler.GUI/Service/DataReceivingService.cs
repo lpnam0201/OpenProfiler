@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using OpenProfiler.GUI.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -14,9 +16,10 @@ namespace OpenProfiler.GUI.Service
         private UdpClient _udpClient;
         private readonly IBufferService _bufferService;
 
-        public DataReceivingService(IBufferService bufferService)
+        public DataReceivingService(IBufferService bufferService, IConfiguration configuration)
         {
-            _udpClient = new UdpClient(29817);
+            var listeningPort = configuration.GetValue<int>(ConfigurationKeyConstants.ListeningPort);
+            _udpClient = new UdpClient(listeningPort);
             _bufferService = bufferService;
 
 

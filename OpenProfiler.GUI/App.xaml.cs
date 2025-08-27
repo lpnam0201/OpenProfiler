@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using Microsoft.Extensions.Configuration;
+using Ninject;
 using OpenProfiler.GUI.DI;
 using OpenProfiler.GUI.Service;
 using OpenProfiler.GUI.ViewModel;
@@ -22,6 +23,7 @@ public partial class App : Application
 
         _kernel = new StandardKernel();
         ConfigureServices();
+        ConfigureAppSettings();
         AppDomain.CurrentDomain.UnhandledException += LogUnhandledException;
 
         MainWindow = new MainWindow();
@@ -32,6 +34,16 @@ public partial class App : Application
     private void ConfigureServices()
     {
         _kernel.Load<OpenProfilerGUIModule>();
+    }
+
+    private void ConfigureAppSettings()
+    {
+        var builder = new ConfigurationBuilder()
+         .SetBasePath(Directory.GetCurrentDirectory())
+         .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+        var configurationRoot = builder.Build();
+        _kernel.Bind<IConfiguration>().ToConstant(configurationRoot);
     }
 
     private void LogUnhandledException(object sender, UnhandledExceptionEventArgs e)
