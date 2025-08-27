@@ -34,9 +34,10 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Command="{Binding SearchCommand}">Search</Button>
+                <TextBox Grid.Column="0" Text="{Binding FilterText}"></TextBox>
+                <Button Grid.Column="1" Command="{Binding FilterCommand}">Filter</Button>
             </Grid>
-            <ListView Grid.Row="2" ItemsSource="{Binding QueryListItems}"
+            <ListView Grid.Row="2" ItemsSource="{Binding FilteredQueryListItems}"
                       SelectedItem="{Binding SelectedQueryListItem}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">

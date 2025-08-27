@@ -11,6 +11,13 @@ namespace OpenProfiler.GUI.ViewModel
 {
     public class MainWindowViewModel : BindableBase
     {
+        private ObservableCollection<QueryListItem> _filteredQueryListItems = new ObservableCollection<QueryListItem>();
+        public ObservableCollection<QueryListItem> FilteredQueryListItems
+        {
+            get { return _filteredQueryListItems; }
+            set { SetProperty(ref _filteredQueryListItems, value); }
+        }
+
         private ObservableCollection<QueryListItem> _queryListItems = new ObservableCollection<QueryListItem>();
         public ObservableCollection<QueryListItem> QueryListItems
         {
@@ -45,9 +52,16 @@ namespace OpenProfiler.GUI.ViewModel
             set { SetProperty(ref _isNotCollecting, value); }
         }
 
+        private string _filterText;
+        public string FilterText
+        {
+            get { return _filterText; }
+            set { SetProperty(ref _filterText, value); }
+        }
+
         public DelegateCommand QueryListItemSelectedCommand { get; set; }
         public DelegateCommand ClearCommand { get; set; }
-        public DelegateCommand SearchCommand { get; set; }
+        public DelegateCommand FilterCommand { get; set; }
         public DelegateCommand PauseCommand { get; set; }
         public DelegateCommand ResumeCommand { get; set; }
 
@@ -66,7 +80,7 @@ namespace OpenProfiler.GUI.ViewModel
             ClearCommand = new DelegateCommand(ClearQueryList);
             PauseCommand = new DelegateCommand(Pause);
             ResumeCommand = new DelegateCommand(Resume);
-            SearchCommand = new DelegateCommand(SearchAndUpdateQueryList);
+            FilterCommand = new DelegateCommand(FilterAndUpdateQueryList);
 
             WatchBuffer();
             _dataReceivingService.StartCollecting();
@@ -79,9 +93,9 @@ namespace OpenProfiler.GUI.ViewModel
             IsNotCollecting = !isCollecting;
         }
 
-        private void SearchAndUpdateQueryList()
+        private void FilterAndUpdateQueryList()
         {
-
+            ApplyFilter();
         }
 
         private void Pause()
@@ -110,6 +124,7 @@ namespace OpenProfiler.GUI.ViewModel
         private void ClearQueryList()
         {
             QueryListItems.Clear();
+            ApplyFilter();
             QueryDetail = null;
         }
 
@@ -129,7 +144,19 @@ namespace OpenProfiler.GUI.ViewModel
                 {
                     QueryListItems.Add(item);
                 }
+                ApplyFilter();
             });
+        }
+
+        private void ApplyFilter()
+        {
+            var filtered = QueryListItems
+                .Where(
+                    x => string.IsNullOrEmpty(FilterText)
+                    || x.Text.Contains(FilterText))
+                .ToList();
+            FilteredQueryListItems = new ObservableCollection<QueryListItem>(filtered);
+
         }
     }
 }
