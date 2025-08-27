@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+	<NHibernateVersion Condition="'$(NHibernateVersion)' == ''">5.5.2</NHibernateVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NHibernate" Version="5.5.2" />
+	<PackageReference Include="NHibernate" Version="$(NHibernateVersion)" />
   </ItemGroup>
 
 </Project>
