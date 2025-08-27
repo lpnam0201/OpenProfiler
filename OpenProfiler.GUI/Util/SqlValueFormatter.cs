@@ -40,8 +40,8 @@ namespace OpenProfiler.GUI.Util
         private static string FormatBoolean(string value)
         {
             return value == "True"
-                ? "1=1"
-                : "1=0";
+                ? "1"
+                : "0";
         }
     }
 }

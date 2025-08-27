@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:prism="http://prismlibrary.com"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Open Profiler GUI" Height="450" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
@@ -23,9 +23,9 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Button Command="{Binding ClearCommand}">Clear</Button>
-                <Button Command="{Binding PauseCommand}" Visibility="{Binding IsCollecting, Converter={StaticResource BoolToVis}}">Pause</Button>
-                <Button Command="{Binding ResumeCommand}" Visibility="{Binding IsNotCollecting, Converter={StaticResource BoolToVis}}">Resume</Button>
+                <Button Command="{Binding ClearCommand}" Width="50">Clear</Button>
+                <Button Command="{Binding PauseCommand}" Width="50" Visibility="{Binding IsCollecting, Converter={StaticResource BoolToVis}}">Pause</Button>
+                <Button Command="{Binding ResumeCommand}" Width="50" Visibility="{Binding IsNotCollecting, Converter={StaticResource BoolToVis}}">Resume</Button>
             </StackPanel>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -35,7 +35,7 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Text="{Binding FilterText}"></TextBox>
-                <Button Grid.Column="1" Command="{Binding FilterCommand}">Filter</Button>
+                <Button Grid.Column="1" Width="50" Command="{Binding FilterCommand}">Filter</Button>
             </Grid>
             <ListView Grid.Row="2" ItemsSource="{Binding FilteredQueryListItems}"
                       SelectedItem="{Binding SelectedQueryListItem}">
