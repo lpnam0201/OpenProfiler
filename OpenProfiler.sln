@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.GUI.Tests", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.NHibernate.NoLog4NetSampleConsole", "Tests\OpenProfiler.NHibernate.NoLog4NetSampleConsole\OpenProfiler.NHibernate.NoLog4NetSampleConsole.csproj", "{1273C2F9-C417-4254-820B-F78F254C0215}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenProfiler.NHibernate.NoLog4NetTest", "Tests\OpenProfiler.NHibernate.NoLog4NetTest\OpenProfiler.NHibernate.NoLog4NetTest.csproj", "{C2421C6C-3012-4FE5-89C7-02052B7EA5A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{1273C2F9-C417-4254-820B-F78F254C0215}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1273C2F9-C417-4254-820B-F78F254C0215}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1273C2F9-C417-4254-820B-F78F254C0215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2421C6C-3012-4FE5-89C7-02052B7EA5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2421C6C-3012-4FE5-89C7-02052B7EA5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2421C6C-3012-4FE5-89C7-02052B7EA5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2421C6C-3012-4FE5-89C7-02052B7EA5A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{7D1BFE58-57C8-42B6-8AC5-CC0E827326EC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2D7567CA-8524-4EF9-B177-A096216046FC} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1273C2F9-C417-4254-820B-F78F254C0215} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C2421C6C-3012-4FE5-89C7-02052B7EA5A3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AB2C4AE-E8F3-4301-B618-C1D80F99A8F9}

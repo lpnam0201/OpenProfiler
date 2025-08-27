@@ -1,14 +1,15 @@
-using NHibernate;
 using NUnit.Framework;
-using OpenProfiler.Models;
-using OpenProfiler.Tests.Common;
-using System.Net;
 using System.Net.Sockets;
+using System.Net;
 using System.Text;
+using NHibernate;
+using OpenProfiler.Tests.Common;
 using System.Text.Json;
+using OpenProfiler.Models;
 
-namespace OpenProfiler.NHibernate.Test
+namespace OpenProfiler.NHibernate.NoLog4NetTest
 {
+    // TODO: Refactor reuse with OpenProfiler.NHibernate.Test
     [TestFixture]
     public class Tests
     {
