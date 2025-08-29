@@ -1,0 +1,13 @@
+HOW TO USE
+1. Extract the zip
+2. Refer to OpenProfiler.dll in your project
+3. Call OpenProfilerInfrastructure.Initialize() ONCE somewhere in your app's startup code.
+By default it runs on port 29817. 
+If you have another process running on this port, pass in an Options when calling Initialize() to allow the Profiler to run on a different port
+4. Launch OpenProfiler.GUI.exe (ensure that its appsettings.json is configured the same port at step 3)
+5. Launch your app
+6. The queries will show up in the UI of OpenProfiler.GUI.exe
+
+HOW IT WORKS
+It uses reflection to create and attach a Logger into NHibernate's internal logger.
+The attached logger will capture the query and send it to a listening OpenProfiler.GUI via UDP.
