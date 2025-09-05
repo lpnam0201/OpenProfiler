@@ -11,3 +11,13 @@ If you have another process running on this port, pass in an Options when callin
 HOW IT WORKS
 It uses reflection to create and attach a Logger into NHibernate's internal logger.
 The attached logger will capture the query and send it to a listening OpenProfiler.GUI via UDP.
+
+CONTRIBUTE:
+HOW TO BUILD
+- After building OpenProfiler.dll, execute OpenProfiler/Tools/merge.cmd to merge its dependencies with itself
+- This will output the final assembly into OpenProfiler/Tests/OpenProfilerDll/
+- Other tests projects will find the assembly at OpenProfiler/Tests/OpenProfilerDll/
+
+HOW TO RUN TEST
+- Use run-all-tests.ps1
+- This will enumerate NHibernate versions defined in NHibernateVersions.txt, then run the test for each version
